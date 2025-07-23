@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Collab</title>
+  <script>
+    // Prevents a flash of the incorrect theme on page load.
+    // This script is intentionally placed in the head and is not a module to block rendering until the class is set.
+    (function() {
+      try {
+        const theme = localStorage.getItem('studyCollabTheme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (theme === 'dark' || (!theme && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {
+        console.error("Error setting initial theme", e);
+      }
+    })();
+  </script>
+  <script>
+    // Tailwind CSS configuration MUST be before loading the Tailwind CSS library.
+    tailwind.config = {
+      darkMode: 'class', // Enable class-based dark mode
+      theme: {
+        extend: {} // You can extend your theme here if needed
+      }
+    }
+  </script>
+  <style>
+    @keyframes fade-in-out {
+      0% { opacity: 0; transform: translateY(-20px); }
+      15% { opacity: 1; transform: translateY(0); }
+      85% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(20px); }
+    }
+    .animate-fade-in-out {
+      animation: fade-in-out 4s ease-in-out forwards;
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/heroicons/2.0.16/24/outline/heroicons.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/heroicons/2.0.16/24/solid/heroicons.min.css" rel="stylesheet">
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "@heroicons/react/": "https://esm.sh/@heroicons/react@^2.2.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.6.0",
+    "uuid": "https://esm.sh/uuid@^10.0.0",
+    "chart.js": "https://esm.sh/chart.js@^4.5.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-gray-100 dark:bg-slate-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 antialiased">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
